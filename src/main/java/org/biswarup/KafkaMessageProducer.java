@@ -26,10 +26,10 @@ public class KafkaMessageProducer {
         return properties;
     }
 
-    public void produceRecord(String topic, String msg){
+    public void produceRecord(String topic, String key, String val){
         ProducerRecord<String, String> producerRecord = null;
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(setProperties())) {
-            producerRecord = new ProducerRecord<>(topic, msg);
+            producerRecord = new ProducerRecord<>(topic, key, val);
             producer.send(producerRecord);
             producer.flush();
             producer.close();
