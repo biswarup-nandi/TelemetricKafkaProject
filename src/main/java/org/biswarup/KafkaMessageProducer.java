@@ -6,10 +6,12 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
 
 public class KafkaMessageProducer {
+    String url = null;
     String user = null;
     String pwd = null;
 
-    KafkaMessageProducer(String u, String p){
+    KafkaMessageProducer(String url, String u, String p){
+        this.url = url;
         this.user = u;
         this.pwd = p;
     }
@@ -17,7 +19,7 @@ public class KafkaMessageProducer {
     //Producer Properties
     private Properties setProperties(){
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "https://thorough-redfish-7112-us1-kafka.upstash.io:9092");
+        properties.setProperty("bootstrap.servers", this.url);
         properties.setProperty("sasl.mechanism", "SCRAM-SHA-256");
         properties.setProperty("security.protocol", "SASL_SSL");
         properties.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"" + this.user + "\" password=\"" + this.pwd + "\";");

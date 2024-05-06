@@ -13,13 +13,14 @@ public class Application {
         MemoryUtilization memoryUtilization = new MemoryUtilization();
         DiskUtilization diskUtilization = new DiskUtilization();
         Map<String, String> env = System.getenv();
+        String kafka_url = env.get("KAFKA_BOOTSTRAP_SERVER_URL");
         String kafka_user = env.get("KAFKA_BOOTSTRAP_SERVER_USERNAME");
         String kafka_pwd = env.get("KAFKA_BOOTSTRAP_SERVER_PASSWORD");
         String topic = "TelemetricData";
         String key = "";
         String msg = "";
 
-        KafkaMessageProducer kafkaMessageProducer = new KafkaMessageProducer(kafka_user, kafka_pwd);
+        KafkaMessageProducer kafkaMessageProducer = new KafkaMessageProducer(kafka_url, kafka_user, kafka_pwd);
         while(true) {
             // Memory utilization
             key = "1";
